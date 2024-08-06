@@ -1,12 +1,13 @@
- 
-const express= require("express");
-const app= express();
-const nodemailer= require("nodemailer")
-const port= 7000;
-const cors= require("cors");
-const bodyParser = require("body-parser")
+const express = require("express");
+const app = express();
+const nodemailer = require("nodemailer");
+const port = 7000;
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 app.use(cors());
 app.use(bodyParser.json());
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -15,12 +16,22 @@ const transporter = nodemailer.createTransport({
     }
 });
 
- 
-// Route to send email
-app.post("/send-email", (req, res) => {
+const sendMailAsync = (mailOptions) => {
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(info);
+            }
+        });
+    });
+};
+
+app.post("/send-email", async (req, res) => {
     const { to, subject, text } = req.body;
     console.log("to", to);
-    const emaillist = to; // Convert array to comma-separated string
+    const emaillist = to.join(','); // Convert array to comma-separated string if it's an array
 
     const mailOptions = {
         from: 'biztoindia5@gmail.com',
@@ -29,19 +40,19 @@ app.post("/send-email", (req, res) => {
         text: text,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log("Error sending email: ", error);
-            return res.status(500).send("Error sending email");
-        }
+    try {
+        const info = await sendMailAsync(mailOptions);
         console.log("Email sent: ", info.response);
         res.status(200).send("Email sent successfully");
-    });
+    } catch (error) {
+        console.log("Error sending email: ", error);
+        res.status(500).send("Error sending email");
+    }
 });
 
-app.listen(port,(err)=>{
-  if(err){
-    console.log(err)
-  }
-  console.log("connected")
-})
+app.listen(port, (err) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log("connected");
+});
