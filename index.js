@@ -35,7 +35,7 @@ app.post("/send-email", async (req, res) => {
 
     const mailOptions = {
         from: 'biztoindia5@gmail.com',
-        to: emaillist,
+        to:  "bamboochickmakerandpigeonnet@gmail.com",
         subject: subject,
         text: text,
     };
