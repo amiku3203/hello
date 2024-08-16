@@ -10,9 +10,12 @@ app.use(bodyParser.json());
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    host:'smtp.gmail.com',
+    port:587,
+    secure:false,
     auth: {
-        user: 'biztoindia5@gmail.com',
-        pass: 'sogl iqoy ghjq xhjx'
+        user: 'amitbamboochickmaker@gmail.com',
+        pass: 'Amit@9193668244'
     }
 });
 
