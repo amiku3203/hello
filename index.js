@@ -37,8 +37,8 @@ app.post("/send-email", async (req, res) => {
     const emaillist = to.join(','); // Convert array to comma-separated string if it's an array
 
     const mailOptions = {
-        from: 'biztoindia5@gmail.com',
-        to:  "kumaramit28538@gmail.com",
+        from: 'amitbamboochickmaker@gmail.com',
+        to:  "amitbamboochickmaker@gmail.com",
         subject: subject,
         text: text,
     };
