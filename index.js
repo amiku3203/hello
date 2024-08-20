@@ -10,12 +10,9 @@ app.use(bodyParser.json());
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
-    host:'smtp.gmail.com',
-    port:587,
-    secure:false,
     auth: {
-        user: 'Amit bamboo chick maker',
-        pass: 'Amit@9193668244'
+         user: 'biztoindia5@gmail.com',
+      pass: 'hlds ycko lmuu vkse',
     }
 });
 
@@ -37,7 +34,7 @@ app.post("/send-email", async (req, res) => {
     const emaillist = to.join(','); // Convert array to comma-separated string if it's an array
 
     const mailOptions = {
-        from: 'amitbamboochickmaker@gmail.com',
+        from: 'biztoindia5@gmail.com',
         to:  "amitbamboochickmaker@gmail.com",
         subject: subject,
         text: text,
